@@ -17,6 +17,7 @@ import { LocalSettings } from "./LocalSettings"
 import { BackTop } from "./BackTop"
 import { Decompress } from "./Decompress"
 import { Share } from "./Share"
+import { TransferShare } from "./TransferShare"
 
 const Upload = lazy(() => import("../uploads/Upload"))
 
@@ -35,6 +36,7 @@ export const Modal = () => {
       <RemoveEmptyDirectory />
       <BatchRename />
       <OfflineDownload />
+      <TransferShare />
       <PackageDownloadModal />
       <ModalWrapper name="upload" title="home.toolbar.upload">
         <Upload />

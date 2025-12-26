@@ -7,7 +7,7 @@ import { AiTwotoneDelete } from "solid-icons/ai"
 import { CgFileAdd, CgFolderAdd, CgFolderRemove } from "solid-icons/cg"
 import { AiOutlineCloudDownload } from "solid-icons/ai"
 import { ImMoveUp } from "solid-icons/im"
-import { BiRegularRename } from "solid-icons/bi"
+import { BiRegularRename, BiRegularTransfer } from "solid-icons/bi"
 
 export interface Operations {
   [key: string]: {
@@ -31,6 +31,7 @@ export const operations: Operations = {
   cancel_select: { icon: TiDeleteOutline },
   download: { icon: AiOutlineCloudDownload, color: "$primary9" },
   share: { icon: CgShare, color: "$primary9" },
+  transfer_share: { icon: BiRegularTransfer, p: true },
 }
 // interface Operation {
 //   label: string;
