@@ -17,18 +17,21 @@ export const ModalWrapper = (props: {
   name: string
   title: string
   blockScrollOnMount?: boolean
+  closeName?: string
 }) => {
   const t = useT()
+  const { isOpen, onOpen, onClose } = createDisclosure()
   const handler = (name: string) => {
     if (name === props.name) {
       onOpen()
+    } else if (props.closeName && name === props.closeName) {
+      onClose()
     }
   }
   bus.on("tool", handler)
   onCleanup(() => {
     bus.off("tool", handler)
   })
-  const { isOpen, onOpen, onClose } = createDisclosure()
   return (
     <Modal
       blockScrollOnMount={props.blockScrollOnMount}

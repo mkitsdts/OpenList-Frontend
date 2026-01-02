@@ -33,6 +33,7 @@ export const TransferShare = () => {
     <ModalWrapper
       name="transfer_share_modal"
       title="home.toolbar.transfer_share"
+      closeName="transfer_share_modal_close"
     >
       <VStack spacing="$2" alignItems="start">
         <Text>Source URL</Text>
@@ -50,11 +51,17 @@ export const TransferShare = () => {
         <Button
           loading={loading()}
           onClick={async () => {
-            const resp = await ok()
-            handleRespWithNotifySuccess(resp, () => {
-              refresh()
-              bus.emit("tool", "transfer_share_modal") // close modal
-            })
+            try {
+              const resp = await ok()
+              handleRespWithNotifySuccess(resp, () => {
+                refresh()
+              })
+            } finally {
+              setSrcUrl("")
+              setValidCode("")
+              bus.emit("tool", "transfer_share_modal_close")
+              bus.emit("tool", "close_right_toolbar")
+            }
           }}
           w="$full"
         >

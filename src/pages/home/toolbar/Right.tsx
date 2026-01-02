@@ -1,5 +1,5 @@
 import { Box, createDisclosure, VStack } from "@hope-ui/solid"
-import { createMemo, Show } from "solid-js"
+import { createMemo, onCleanup, Show } from "solid-js"
 import { RightIcon } from "./Icon"
 import { CgMoreO } from "solid-icons/cg"
 import { TbCheckbox } from "solid-icons/tb"
@@ -15,10 +15,19 @@ import { isTocVisible, setTocDisabled } from "~/components"
 import { BiSolidBookContent } from "solid-icons/bi"
 
 export const Right = () => {
-  const { isOpen, onToggle } = createDisclosure({
+  const { isOpen, onToggle, onClose } = createDisclosure({
     defaultIsOpen: localStorage.getItem("more-open") === "true",
     onClose: () => localStorage.setItem("more-open", "false"),
     onOpen: () => localStorage.setItem("more-open", "true"),
+  })
+  const handler = (name: string) => {
+    if (name === "close_right_toolbar") {
+      onClose()
+    }
+  }
+  bus.on("tool", handler)
+  onCleanup(() => {
+    bus.off("tool", handler)
   })
   const margin = createMemo(() => (isOpen() ? "$4" : "$5"))
   const isFolder = createMemo(() => objStore.state === State.Folder)
