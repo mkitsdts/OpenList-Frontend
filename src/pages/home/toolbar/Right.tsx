@@ -125,13 +125,15 @@ export const Right = () => {
                   bus.emit("tool", "upload")
                 }}
               />
-              <RightIcon
-                as={operations.transfer_share.icon}
-                tips="transfer_share"
-                onClick={() => {
-                  bus.emit("tool", "transfer_share")
-                }}
-              />
+              <Show when={objStore.can_transfer}>
+                <RightIcon
+                  as={operations.transfer_share.icon}
+                  tips="transfer_share"
+                  onClick={() => {
+                    bus.emit("tool", "transfer_share")
+                  }}
+                />
+              </Show>
             </Show>
             <Show
               when={isFolder() && !isShare() && userCan("offline_download")}

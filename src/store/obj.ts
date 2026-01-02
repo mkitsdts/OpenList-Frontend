@@ -29,14 +29,12 @@ const initialObjStore = {
   header: "",
   provider: "",
   direct_upload_tools: <string[] | undefined>undefined,
+  can_transfer: false,
   state: State.Initial,
   err: "",
+  write: <boolean | undefined>undefined,
 }
-const [objStore, setObjStore] = createStore<
-  typeof initialObjStore & {
-    write?: boolean
-  }
->(initialObjStore)
+const [objStore, setObjStore] = createStore(initialObjStore)
 
 const setObjs = (objs: Obj[]) => {
   lastChecked.start = -1
@@ -79,6 +77,8 @@ export const ObjStore = {
   setState: (state: State) => setObjStore("state", state),
   setDirectUploadTools: (tools?: string[]) =>
     setObjStore("direct_upload_tools", tools),
+  setCanTransfer: (canTransfer: boolean) =>
+    setObjStore("can_transfer", canTransfer),
   setErr: (err: string) => setObjStore("err", err),
 }
 

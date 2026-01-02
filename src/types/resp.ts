@@ -19,6 +19,7 @@ export type FsListResp = Resp<{
   write: boolean
   provider: string
   direct_upload_tools?: string[]
+  can_transfer: boolean
 }>
 
 export type SearchNode = {

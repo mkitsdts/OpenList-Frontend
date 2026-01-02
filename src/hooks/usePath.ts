@@ -178,6 +178,7 @@ export const usePath = () => {
         ObjStore.setWrite(data.write)
         ObjStore.setProvider(data.provider)
         ObjStore.setDirectUploadTools(data.direct_upload_tools)
+        ObjStore.setCanTransfer(data.can_transfer)
         ObjStore.setState(State.Folder)
       },
       handleErr,
