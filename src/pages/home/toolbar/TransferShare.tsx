@@ -1,7 +1,7 @@
 import { Button, HStack, Input, Text, VStack } from "@hope-ui/solid"
-import { createSignal, onCleanup } from "solid-js"
+import { createSignal } from "solid-js"
 import { useFetch, usePath, useRouter, useT } from "~/hooks"
-import { bus, handleRespWithNotifySuccess, r } from "~/utils"
+import { bus, handleRespWithNotifySuccess, notify, r } from "~/utils"
 import { ModalWrapper } from "./ModalWrapper"
 
 export const TransferShare = () => {
@@ -18,20 +18,9 @@ export const TransferShare = () => {
         valid_code: validCode(),
       }),
   )
-
-  const handler = (name: string) => {
-    if (name === "transfer_share") {
-      bus.emit("tool", "transfer_share_modal")
-    }
-  }
-  bus.on("tool", handler)
-  onCleanup(() => {
-    bus.off("tool", handler)
-  })
-
   return (
     <ModalWrapper
-      name="transfer_share_modal"
+      name="transfer_share"
       title={t("home.toolbar.transfer_share")}
       closeName="transfer_share_modal_close"
     >
@@ -61,10 +50,15 @@ export const TransferShare = () => {
           loading={loading()}
           onClick={async () => {
             try {
+              if (!srcUrl()) {
+                throw new Error("Empty Source URL")
+              }
               const resp = await ok()
               handleRespWithNotifySuccess(resp, () => {
                 refresh()
               })
+            } catch (e) {
+              notify.error((e as Error).message)
             } finally {
               setSrcUrl("")
               setValidCode("")
