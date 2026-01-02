@@ -69,6 +69,8 @@
     "cancel_select": "Cancel Select",
     "offline_download": "Offline download",
     "transfer_share": "Transfer Share",
+    "transfer_share_src_url": "Source URL",
+    "transfer_share_valid_code": "Valid Code (Optional)",
     "offline_download-tips": "One URL per line",
     "delete_policy": {
       "delete_on_upload_succeed": "Delete on upload succeed",

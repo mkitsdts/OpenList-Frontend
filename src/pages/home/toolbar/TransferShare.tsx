@@ -1,4 +1,4 @@
-import { Button, Input, Text, VStack } from "@hope-ui/solid"
+import { Button, HStack, Input, Text, VStack } from "@hope-ui/solid"
 import { createSignal, onCleanup } from "solid-js"
 import { useFetch, usePath, useRouter, useT } from "~/hooks"
 import { bus, handleRespWithNotifySuccess, r } from "~/utils"
@@ -32,22 +32,31 @@ export const TransferShare = () => {
   return (
     <ModalWrapper
       name="transfer_share_modal"
-      title="home.toolbar.transfer_share"
+      title={t("home.toolbar.transfer_share")}
       closeName="transfer_share_modal_close"
     >
       <VStack spacing="$2" alignItems="start">
-        <Text>Source URL</Text>
+        <Text>{t("home.toolbar.transfer_share_src_url")}</Text>
         <Input
           value={srcUrl()}
           onInput={(e) => setSrcUrl(e.currentTarget.value)}
-          placeholder="http://..."
+          placeholder="https://..."
         />
-        <Text>Valid Code (Optional)</Text>
+        <Text>{t("home.toolbar.transfer_share_valid_code")}</Text>
         <Input
           value={validCode()}
           onInput={(e) => setValidCode(e.currentTarget.value)}
-          placeholder="Code"
         />
+      </VStack>
+      <HStack spacing="$2" mt="$4" mb="$2" justifyContent="end">
+        <Button
+          onClick={() => {
+            bus.emit("tool", "transfer_share_modal_close")
+          }}
+          colorScheme="neutral"
+        >
+          {t("global.cancel")}
+        </Button>
         <Button
           loading={loading()}
           onClick={async () => {
@@ -60,14 +69,12 @@ export const TransferShare = () => {
               setSrcUrl("")
               setValidCode("")
               bus.emit("tool", "transfer_share_modal_close")
-              bus.emit("tool", "close_right_toolbar")
             }
           }}
-          w="$full"
         >
           {t("global.confirm")}
         </Button>
-      </VStack>
+      </HStack>
     </ModalWrapper>
   )
 }
